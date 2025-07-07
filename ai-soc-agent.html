@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Building an AI SOC Agent | Ghostnet-Zero</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>⟁ Building an AI SOC Agent</h1>
+  <p><em>By ghostnet-zero | adversary ∴ emulated</em></p>
+
+  <h2>🧠 What Is an AI SOC Agent?</h2>
+  <p>
+    A SOC (Security Operations Center) agent is like a digital analyst—it watches logs, detects threats, and responds. 
+    An <strong>AI SOC Agent</strong> uses a language model (like GPT-4) to do this automatically.
+  </p>
+
+  <h2>🎯 Why Build One?</h2>
+  <ul>
+    <li>To reduce alert fatigue</li>
+    <li>To summarize logs in plain English</li>
+    <li>To recommend or trigger responses (like blocking IPs)</li>
+  </ul>
+
+  <h2>🧰 Tools Used</h2>
+  <ul>
+    <li><strong>LangChain</strong> – Framework for building AI agents</li>
+    <li><strong>Zeek</strong> – Network traffic analyzer</li>
+    <li><strong>Python</strong> – For scripting and integration</li>
+    <li><strong>OpenAI API</strong> – For GPT-4 responses</li>
+  </ul>
+
+  <h2>⚙️ How It Works</h2>
+  <ol>
+    <li>Zeek generates logs from network traffic</li>
+    <li>A Python script reads the logs</li>
+    <li>LangChain sends the logs to GPT-4</li>
+    <li>The AI summarizes the activity and suggests actions</li>
+  </ol>
+
+  <h2>💻 Sample Code (Explained)</h2>
+  <pre><code># Read Zeek logs
+with open("conn.log", "r") as f:
+    logs = f.read()
+
+# Prompt the AI
+from langchain.chat_models import ChatOpenAI
+llm = ChatOpenAI(model="gpt-4")
+
+response = llm.predict(f"""
+You're a SOC analyst. Summarize this network activity and flag anything suspicious:
+{logs}
+""")
+
+print(response)
+</code></pre>
+
+  <p><strong>What this does:</strong> It reads the Zeek logs, sends them to GPT-4, and prints the AI’s summary. You can later automate this to run every minute and trigger alerts.</p>
+
+  <h2>🚀 What’s Next?</h2>
+  <ul>
+    <li>Connect to Loki or Cowrie logs</li>
+    <li>Trigger denylist updates automatically</li>
+    <li>Visualize summaries in Grafana</li>
+  </ul>
+
+  <h2>⟡ Final Thoughts</h2>
+  <p>
+    This is just the beginning. AI can help defenders scale their response and reduce noise. 
+    In Ghostnet-Zero, this agent will become part of a larger autonomous SOC system.
+  </p>
+
+  <footer>
+    <p><a href="index.html">← Back to Ghostnet-Zero</a></p>
+  </footer>
+</body>
+</html>
